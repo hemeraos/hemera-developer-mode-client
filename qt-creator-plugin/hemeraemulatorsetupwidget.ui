@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Hemera::Internal::HemeraEmulatorSetupWidget</class>
+ <widget class="QWidget" name="Hemera::Internal::HemeraEmulatorSetupWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>597</width>
+    <height>364</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>A Hemera Emulator is a VirtualBox virtual machine. You should have already received a (compressed) VDI file or a Start! token for installation. In case you set up the Virtual Machine yourself, you can also convert it into an emulator.
+
+Please choose your preferred installation method.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Emulator name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="emulatorNameLineEdit">
+       <property name="placeholderText">
+        <string>The new emulator name - ASCII characters only, no spaces.</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="vdiFileRadio">
+     <property name="text">
+      <string>Install from VDI file</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout_2">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>VDI file</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLineEdit" name="vdiFileLineEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="browseVDIButton">
+         <property name="text">
+          <string>Browse...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="startTokenRadio">
+     <property name="text">
+      <string>Install from Start! token</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout_3">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Start! Token</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="startTokenLineEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="existingVBoxRadio">
+     <property name="text">
+      <string>Convert existing VirtualBox machine</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListView" name="vBoxListView">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>vdiFileRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>vdiFileLineEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vdiFileRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>browseVDIButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>484</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startTokenRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>startTokenLineEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>308</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>existingVBoxRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>vBoxListView</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>298</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

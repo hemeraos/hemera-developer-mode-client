@@ -1,0 +1,212 @@
+{
+    "version": 1,
+    "kind": "project",
+    "id": "H.HemeraQtApplication",
+    "category": "F.Application",
+    "trDescription": "Creates a Qt application for Hemera.",
+    "trDisplayName": "Hemera Qt application",
+    "trDisplayCategory": "Hemera",
+    "icon": "hemera.png",
+    "featuresRequired": [ "Plugin.Hemera", "QtSupport.Wizards.Feature.Hemera" ],
+
+    "options":
+    [
+        { "key": "HaFilePath", "value": "%{JS: '%{ProjectDirectory}/%{ApplicationId}.ha'}" },
+        { "key": "IsTopLevelProject", "value": "%{JS: ('%{Exists:ProjectExplorer.Profile.Ids}') ? '' : 'yes'}" },
+        { "key": "HaFileName", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{ProjectName}', 'ha')}" },
+        { "key": "BaseHaClass", "value": "%{JS: if ('%{ApplicationType}' === 'QQ2QML') 'SimpleQmlApplication'
+                                                else if ('%{ApplicationType}'.indexOf('CPP') >= 0) 'SimpleCppApplication'
+                                                else ''
+                                           }" },
+
+        { "key": "FileClassName", "value": "%{JS: '%{BaseClassName}'.toLowerCase() }"},
+        { "key": "MainQmlFile", "value": "main.%{JS: Util.preferredSuffix(\"application/x-qml\")}"},
+
+        { "key": "CppClassFile", "value": "%{JS: Cpp.classToFileName('%{BaseClassName}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}"},
+        { "key": "HdrClassFile", "value": "%{JS: Cpp.classToFileName('%{BaseClassName}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
+
+        { "key": "SourceFiles", "value": "%{JS: if ('%{ApplicationType}'.indexOf('CPP') >= 0) 'sourceFiles:[\"src/%{CppClassFile}\"]'
+                                                else ''
+                                           }" },
+        { "key": "ResourceFiles", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ') >= 0) 'resourceFiles:[\"qml/%{MainQmlFile}\"]'
+                                                  else ''
+                                             }" },
+        { "key": "AdditionalQtModules", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ2') >= 0) 'QtModules.Gui | QtModules.Qml | QtModules.Quick'
+                                                        else if ('%{ApplicationType}'.indexOf('QQ1') >= 0) 'QtModules.Gui | QtModules.Widgets | QtModules.Declarative'
+                                                        else if ('%{ApplicationType}'.indexOf('QWND') >= 0) 'QtModules.Gui'
+                                                        else if ('%{ApplicationType}'.indexOf('WIDGETS') >= 0) 'QtModules.Gui | QtModules.Widgets'
+                                                        else if ('%{ApplicationType}'.indexOf('HEADLESS') >= 0) ''
+                                                        else ''
+                                             }" },
+        { "key": "AdditionalHemeraModules", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ2') >= 0) 'HemeraModules.Gui | HemeraModules.Qml'
+                                                        else if ('%{ApplicationType}'.indexOf('QQ1') >= 0) 'HemeraModules.Gui | HemeraModules.Widgets'
+                                                        else if ('%{ApplicationType}'.indexOf('QWND') >= 0) 'HemeraModules.Gui'
+                                                        else if ('%{ApplicationType}'.indexOf('WIDGETS') >= 0) 'HemeraModules.Gui | HemeraModules.Widgets'
+                                                        else if ('%{ApplicationType}'.indexOf('HEADLESS') >= 0) ''
+                                                        else ''
+                                             }" },
+
+        { "key": "AdditionalConstructorArguments", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ') >= 0 && '%{ApplicationType}'.indexOf('CPP') >= 0)
+                                                                       ', QUrl(QStringLiteral(\"resource://qml/%{MainQmlFile}\"))'
+                                                                   else ''
+                                             }" },
+        { "key": "HemeraIncludeHeader", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ2') >= 0) 'HemeraGui/QmlGuiApplication'
+                                                        else if ('%{ApplicationType}'.indexOf('QQ1') >= 0) 'HemeraWidgets/QtQuick1Application'
+                                                        else if ('%{ApplicationType}'.indexOf('QWND') >= 0) 'HemeraGui/GuiApplication'
+                                                        else if ('%{ApplicationType}'.indexOf('WIDGETS') >= 0) 'HemeraWidgets/WidgetsApplication'
+                                                        else if ('%{ApplicationType}'.indexOf('HEADLESS') >= 0) 'HemeraCore/HeadlessApplication'
+                                                        else ''
+                                             }" },
+        { "key": "HemeraBaseClass", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ2') >= 0) 'QmlGuiApplication'
+                                                    else if ('%{ApplicationType}'.indexOf('QQ1') >= 0) 'QtQuick1Application'
+                                                    else if ('%{ApplicationType}'.indexOf('QWND') >= 0) 'GuiApplication'
+                                                    else if ('%{ApplicationType}'.indexOf('WIDGETS') >= 0) 'WidgetsApplication'
+                                                    else if ('%{ApplicationType}'.indexOf('HEADLESS') >= 0) 'HeadlessApplication'
+                                                    else ''
+                                             }" },
+        { "key": "HemeraMainMacro", "value": "%{JS: if ('%{ApplicationType}'.indexOf('QQ2') >= 0) 'HEMERA_GUI_APPLICATION_MAIN'
+                                                    else if ('%{ApplicationType}'.indexOf('QQ1') >= 0) 'HEMERA_WIDGETS_APPLICATION_MAIN'
+                                                    else if ('%{ApplicationType}'.indexOf('QWND') >= 0) 'HEMERA_GUI_APPLICATION_MAIN'
+                                                    else if ('%{ApplicationType}'.indexOf('WIDGETS') >= 0) 'HEMERA_WIDGETS_APPLICATION_MAIN'
+                                                    else if ('%{ApplicationType}'.indexOf('HEADLESS') >= 0) 'HEMERA_HEADLESS_APPLICATION_MAIN'
+                                                    else ''
+                                             }" }
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Project Location",
+            "trShortTitle": "Location",
+            "typeId": "Project"
+        },
+        {
+            "trDisplayName": "Application Data",
+            "trShortTitle": "Application Data",
+            "typeId": "Fields",
+            "data" :
+            [
+                {
+                    "name": "ApplicationId",
+                    "trDisplayName": "Application ID:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "^[a-zA-Z]{2,3}\.{1,1}[a-zA-Z\.]{1,}[a-zA-Z]{1,}$" }
+                },
+                {
+                    "name": "ApplicationName",
+                    "trDisplayName": "Application Name:",
+                    "mandatory": true,
+                    "type": "LineEdit"
+                },
+                {
+                    "name": "ApplicationVersion",
+                    "trDisplayName": "Application Version:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "^[a-zA-Z0-9\.]{1,}[a-zA-Z0-9]$" }
+                },
+                {
+                    "name": "Sp1",
+                    "type": "Spacer",
+                    "data": { "size": 6 }
+                },
+                {
+                    "name": "ApplicationType",
+                    "trDisplayName": "Application Type:",
+                    "mandatory": true,
+                    "type": "ComboBox",
+                    "data":
+                    {
+                        "items":
+                        [
+                            { "trKey": "QML Only, Qt Quick 2 (OpenGL required)", "value": "QQ2QML" },
+                            { "trKey": "QML and C++, Qt Quick 2 (OpenGL required)", "value": "QQ2CPP" },
+                            { "trKey": "QML Only, Qt Quick 1 (Software Rendering)", "value": "QQ1QML" },
+                            { "trKey": "QML and C++, Qt Quick 1 (Software Rendering)", "value": "QQ1CPP" },
+                            { "trKey": "C++ only, QWindow GUI (OpenGL required)", "value": "CPPQWND" },
+                            { "trKey": "C++ only, QtWidgets (Software Rendering)", "value": "CPPWIDGETS" },
+                            { "trKey": "C++ only, Headless", "value": "CPPHEADLESS" }
+                        ]
+                    }
+                },
+                {
+                    "name": "BaseClassName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Main Class Name:",
+                    "enabled": "%{JS: ( '%{ApplicationType}'.indexOf('CPP') >= 0 ) ? 'yes' : ''}",
+                    "mandatory": false,
+                    "data": { "validator": "[a-zA-Z0-9]*" }
+                },
+                {
+                    "name": "Sp2",
+                    "type": "Spacer",
+                    "data": { "size": 6 }
+                },
+                {
+                    "name": "OrganizationName",
+                    "trDisplayName": "Organization Name:",
+                    "mandatory": false,
+                    "type": "LineEdit"
+                },
+                {
+                    "name": "ApplicationDescription",
+                    "trDisplayName": "Application Description:",
+                    "mandatory": false,
+                    "type": "TextEdit"
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Kit Selection",
+            "trShortTitle": "Kits",
+            "typeId": "Kits",
+            "enabled": "%{IsTopLevelProject}",
+            "data": { "projectFilePath": "%{HaFileName}" }
+        },
+        {
+            "trDisplayName": "Project Management",
+            "trShortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            [
+                {
+                    "source": "domain.ha",
+                    "target": "%{HaFilePath}",
+                    "openAsProject": true
+                },
+                {
+                    "source": "git.ignore",
+                    "target": "%{ProjectDirectory}/.gitignore",
+                    "condition": "%{JS: ('%{VersionControl}%{IsSubproject}' === 'G.Git') ? 'yes' : ''}"
+                },
+                {
+                    "source": "class.cpp",
+                    "target": "%{ProjectDirectory}/src/%{CppClassFile}",
+                    "condition": "%{JS: ('%{ApplicationType}'.indexOf('CPP') >= 0) ? 'yes' : ''}"
+                },
+                {
+                    "source": "class.h",
+                    "target": "%{ProjectDirectory}/src/%{HdrClassFile}",
+                    "condition": "%{JS: ('%{ApplicationType}'.indexOf('CPP') >= 0) ? 'yes' : ''}"
+                },
+                {
+                    "source": "mainqq2.qml",
+                    "target": "%{ProjectDirectory}/qml/%{MainQmlFile}",
+                    "condition": "%{JS: ('%{ApplicationType}'.indexOf('QQ2') >= 0) ? 'yes' : ''}"
+                },
+                {
+                    "source": "mainqq1.qml",
+                    "target": "%{ProjectDirectory}/qml/%{MainQmlFile}",
+                    "condition": "%{JS: ('%{ApplicationType}'.indexOf('QQ1') >= 0) ? 'yes' : ''}"
+                }
+            ]
+        }
+    ]
+}

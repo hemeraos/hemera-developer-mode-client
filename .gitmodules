@@ -1,0 +1,6 @@
+[submodule "3rdparty/hemera-qt5-sdk"]
+	path = 3rdparty/hemera-qt5-sdk
+	url = git@github.com:hemeraos/hemera-qt5-sdk.git
+[submodule "3rdparty/qtjsonstream"]
+	path = 3rdparty/qtjsonstream
+	url = git@github.com:qtproject/playground-qtjsonstream.git

@@ -1,0 +1,14 @@
+Makefile
+arm/
+x86/
+*.o
+*.user
+*~
+*.qm
+*.old
+build/
+*.user
+*~
+*.kdev4
+.kdev*
+build-*/

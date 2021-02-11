@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/hemera">
+        <file>Hemera.mimetypes.xml</file>
+    </qresource>
+    <qresource prefix="/pixmaps">
+        <file>icons/audio-card.png</file>
+        <file>icons/computer.png</file>
+    </qresource>
+</RCC>

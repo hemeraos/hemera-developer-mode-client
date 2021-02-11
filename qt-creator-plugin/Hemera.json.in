@@ -1,0 +1,12 @@
+{
+    \"Name\" : \"Hemera\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"Ispirata\",
+    \"Copyright\" : \"(C) 2014 Ispirata S.r.l.\",
+    \"License\" : \"This binary is freely distributable\",
+    \"Description\" : \"Qt Creator plugin for Hemera, allowing Target Management, Application development and deployment, and more\",
+    \"Url\" : \"http://hemera.io/\",
+    $$dependencyList
+}
+
